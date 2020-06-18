@@ -1,7 +1,8 @@
 import fs from 'fs';
 
-const updateReportProperties = (report) => {
+export const updateReportProperties = (report) => {
   return {
+    ...report,
     numFailedTestSuites: report.testResults.filter((suite) => suite.numFailingTests > 0).length,
     numFailedTests: report.testResults.reduce((total, item) => total + item.numFailingTests, 0),
     numPassedTestSuites: report.testResults.filter((suite) => suite.numPassingTests > 0).length,
@@ -17,7 +18,7 @@ const updateReportProperties = (report) => {
   };
 };
 
-const updateReportResults = (report = {}, cur = {}) => {
+export const updateReportResults = (report = {}, cur = {}) => {
   const uniqueSuites = [
     ...new Set([
       ...report.testResults.map(
@@ -30,8 +31,9 @@ const updateReportResults = (report = {}, cur = {}) => {
   ];
 
   return {
+    ...report,
     startTime: report.startTime || cur.startTime,
-    updated: Math.round(new Date().getTime()),
+    updated: cur.startTime,
     testResults: uniqueSuites.map((suite) => {
       // Updated test
       if (
@@ -65,15 +67,18 @@ const updateReportResults = (report = {}, cur = {}) => {
 class JestJsonCumulativeReporter {
   constructor(globalConfig, options) {
     this.globalConfig = globalConfig;
-    this.options = options;
+    this.options = {
+      filename: 'report.json',
+      ...options,
+    };
     this.report = fs.existsSync(options.filename)
       ? JSON.parse(fs.readFileSync(options.filename, 'utf8'))
       : { testResults: [] };
   }
 
   onRunComplete(test, results) {
-    this.report = { ...this.report, ...updateReportResults(this.report, results) };
-    this.report = { ...this.report, ...updateReportProperties(this.report) };
+    this.report = updateReportResults(this.report, results);
+    this.report = updateReportProperties(this.report);
     fs.writeFileSync(this.options.filename, JSON.stringify(this.report));
   }
 }
