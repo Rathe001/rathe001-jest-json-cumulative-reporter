@@ -5,24 +5,24 @@ import { terser } from 'rollup-plugin-terser';
 const extensions = ['.js'];
 
 const config = {
+  external: ['xmlbuilder', 'fs', 'path', 'dateformat', 'mkdirp', 'strip-ansi'],
   input: 'src/index.js',
   output: [
     {
       dir: 'dist',
-      format: 'cjs'
-    }
+      format: 'cjs',
+    },
   ],
-  external: ['xmlbuilder', 'fs', 'path', 'dateformat', 'mkdirp', 'strip-ansi'],
   plugins: [
     resolve({
+      extensions,
       jsnext: true,
-      extensions
     }),
     babel({
-      extensions
+      extensions,
     }),
-    terser()
-  ]
+    terser(),
+  ],
 };
 
 export default config;

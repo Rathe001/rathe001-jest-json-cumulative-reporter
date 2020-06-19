@@ -24,23 +24,36 @@
   ],
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^8.0.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
     "eslint-plugin-sort-destructure-keys": "^1.3.4",
-    "eslint-plugin-sort-keys-fix": "^1.1.1",
+    "eslint-plugin-sort-keys-fix": "^1.2.0",
+    "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "rollup": "^2.17.0",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-terser": "^6.1.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "shx": "^0.3.2"
   },
   "dependencies": {
     "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "eslint-config-airbnb": "^18.1.0"
+    "@babel/preset-env": "^7.10.2"
   },
   "scripts": {
-    "bundle": "rollup -c",
-    "build": "npm run test && npm run bundle"
+    "test": "jest",
+    "lint": "eslint . --fix --ext .js",
+    "build": "npm run clean && npm run copy && rollup -c",
+    "clean": "shx rm -rf dist",
+    "devPackage": "npm run build && cd dist && npm pack",
+    "copy": "shx mkdir dist && shx cp -r src dist/src && shx cp {package.json,README.md,.npmignore} dist"
   },
   "eslintConfig": {
     "extends": "react-app"
