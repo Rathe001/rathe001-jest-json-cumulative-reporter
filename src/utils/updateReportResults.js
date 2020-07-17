@@ -2,7 +2,7 @@ const updateReportResults = ({ options, report, results }) => {
   const { ignore = [] } = options;
   const getFilenames = (ary) => ary
     .filter((rs) => !ignore.find((i) => rs.testFilePath.includes(i)))
-    .map((i) => i.testFilePath.split('/')[i.testFilePath.split('/').length - 1]);
+    .map((i) => i.testFilePath.replace((/\\/g, '/')).split('/')[i.testFilePath.replace((/\\/g, '/')).split('/').length - 1]);
 
   const testResults = [
     ...new Set([...getFilenames(report.testResults), ...getFilenames(results.testResults)]),
