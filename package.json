@@ -2,7 +2,7 @@
   "author": "Josh Tummel",
   "name": "jest-json-cumulative-reporter",
   "title": "Jest JSON Cumulative Reporter",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "private": false,
   "main": "dist/index.js",
   "unpkg": "dist/index.js",
@@ -53,7 +53,7 @@
     "build": "npm run clean && npm run copy && rollup -c",
     "clean": "shx rm -rf dist",
     "devPackage": "npm run build && cd dist && npm pack",
-    "copy": "shx mkdir dist && shx cp -r src dist/src && shx cp {package.json,README.md,.npmignore} dist"
+    "copy": "shx mkdir dist && shx cp -r src/utils dist/utils && shx cp {package.json,README.md,.npmignore} dist"
   },
   "eslintConfig": {
     "extends": "react-app"

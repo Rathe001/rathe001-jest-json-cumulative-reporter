@@ -27,5 +27,4 @@ class JestJsonCumulativeReporter {
   }
 }
 
-export { updateReportResults, updateReportProperties };
 export default JestJsonCumulativeReporter;
