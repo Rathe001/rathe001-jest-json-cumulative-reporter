@@ -1,6 +1,5 @@
 import fs from 'fs';
-import updateReportResults from './utils/updateReportResults';
-import updateReportProperties from './utils/updateReportProperties';
+import { updateReportResults, updateReportProperties } from './utils';
 
 class JestJsonCumulativeReporter {
   constructor(globalConfig, options) {
