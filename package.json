@@ -2,7 +2,7 @@
   "author": "Josh Tummel",
   "name": "jest-json-cumulative-reporter",
   "title": "Jest JSON Cumulative Reporter",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": false,
   "main": "dist/index.js",
   "unpkg": "dist/index.js",
